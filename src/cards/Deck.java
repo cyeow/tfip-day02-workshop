@@ -8,10 +8,16 @@ import java.util.List;
 public class Deck {
     
     private Stack<Card> cards = new Stack<>();
-
+    
     // constructor 
     public Deck() {
-        this(52);
+        // generates all 52
+        for(Suit s : Suit.values()) {
+            for(CardValue cv : CardValue.values()) {
+                Card c = new Card(s, cv);
+                cards.push(c);
+            }
+        }
     }
     
     public Deck(int numCards) {
@@ -21,9 +27,11 @@ public class Deck {
     public Deck(int numCards, boolean duplicatesAllowed) {
         // create numCards number of cards and add to deck
         // check if there are duplicates;
+
+        // i wrote this below to allow for cards to be generated in a random order
+        
         for(int i = 0; i < numCards; i++) {
             Card c = new Card(Suit.randomSuit(), CardValue.randomCardValue());
-            System.out.println(i);
             if(!duplicatesAllowed) {
                 if(cards.toString().contains(c.toString())) {
                     i--;
@@ -34,7 +42,6 @@ public class Deck {
                 cards.push(c);
             }
         }
-        //System.out.println(cards.size());
     }
 
     public void shuffle() {
